@@ -1,5 +1,9 @@
+// the reduce method that was missing
 function getTotalBooksCount(books) {
-  return books.length;
+  return books.reduce((totalCount) => {
+    totalCount++;
+    return totalCount
+  }, 0);
 }
 
 function getTotalAccountsCount(accounts) {
@@ -22,24 +26,24 @@ function getMostCommonGenres(books) {
     map[sum.genre] = 1;
    }
   });
-  return Object.entries(map)
+   let result = Object.entries(map)
    .map(([name, count]) => {
     return {name,count};
    })
    .sort((a, b) => b.count - a.count)
-   .slice(0, 5);
+   return firstFive(result);
  }
 
 function getMostPopularBooks(books) {
- return books.map((book) => {
+ let result= books.map((book) => {
   return {name: book.title, count: book.borrows.length}
  })
  .sort((a, b) => (a.count < b.count ? 1: -1))
- .slice(0, 5);
+ return firstFive(result);
 }
 
 function getMostPopularAuthors(books, authors) {
-  const result = [];
+  let result = [];
   
   authors.forEach((author) => {
    const theAuthor = {
@@ -55,7 +59,12 @@ function getMostPopularAuthors(books, authors) {
     });
     result.push(theAuthor);
   });
-  return result.sort((a, b) => b.count - a.count).slice(0,5);
+   result = result.sort((a, b) => b.count - a.count);
+   return firstFive(result);
+}
+// helper function for slicing the top 5
+function firstFive(array) {
+  return array.slice(0, 5) 
 }
 
 module.exports = {
