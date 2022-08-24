@@ -1,3 +1,4 @@
+// the reduce method that was missing
 function getTotalBooksCount(books) {
   return books.reduce((totalCount) => {
     totalCount++;
@@ -61,7 +62,7 @@ function getMostPopularAuthors(books, authors) {
    result = result.sort((a, b) => b.count - a.count);
    return firstFive(result);
 }
-
+// helper function for slicing the top 5
 function firstFive(array) {
   return array.slice(0, 5) 
 }
